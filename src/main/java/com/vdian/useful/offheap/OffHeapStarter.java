@@ -1,6 +1,7 @@
 package com.vdian.useful.offheap;
 
 import com.vdian.useful.offheap.apps.AbstractAppInvoker;
+import com.vdian.useful.offheap.apps.DirectByteBufferApp;
 import org.apache.commons.proxy.Interceptor;
 import org.apache.commons.proxy.Invocation;
 import org.apache.commons.proxy.ProxyFactory;
@@ -15,7 +16,7 @@ import java.util.Set;
 
 /**
  * * vm options
- * -Xmx512M
+ * -Xmx1024M
  * -XX:MaxDirectMemorySize=512M
  * -XX:+PrintGC
  * -XX:+UseConcMarkSweepGC
@@ -62,7 +63,8 @@ public class OffHeapStarter {
 
             Object result = null;
             if (method.isAnnotationPresent(Test.class)
-                    && method.getName().equals("invoke")) {
+                    && method.getName().equals("invoke")
+                    && clazz.getSimpleName().equalsIgnoreCase(DirectByteBufferApp.class.getSimpleName())) {
 
                 String methodName = String.format("%s.%s", clazz.getSimpleName(), method.getName());
                 System.out.println("method [" + methodName + "] start invoke");

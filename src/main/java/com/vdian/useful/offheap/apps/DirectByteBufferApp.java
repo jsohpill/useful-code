@@ -41,7 +41,7 @@ public class DirectByteBufferApp extends AbstractAppInvoker {
             FeedDO feedDO = deserMap.get(key);
             checkValid(feedDO);
 
-            if (i % 10000 == 0) {
+            if (i % 1000 == 0) {
                 System.out.println("read " + i);
             }
         }
@@ -57,6 +57,8 @@ public class DirectByteBufferApp extends AbstractAppInvoker {
             String key = "key-" + i;
             FeedDO value = createFeed(i, key, createTime);
             map.put(key, value);
+            if (i%100000==0)
+                System.out.println("DirectByteBuffer: length: " + i);
         }
 
         return map;
